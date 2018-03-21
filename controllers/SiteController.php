@@ -297,7 +297,7 @@ class SiteController extends Controller
                             $model->remark = 'Success';
                             $model->created_at = date('Y-m-d H:i:s');
                             //$pdf_content = $this->render('Transferfile\afterTransfer', ['model' => $model]);
-                            $pdf_content = $this->render('maybankyh/web/site/transferfile/afterTransfer', ['model' => $model]);
+                            $pdf_content = $this->render('transferfile/afterTransfer', ['model' => $model]);
                             $mpdf = new \Mpdf\Mpdf();
                             $mpdf->WriteHTML($pdf_content);
                             $mpdf->Output();
@@ -307,14 +307,14 @@ class SiteController extends Controller
 
  // return $this->render('Transferfile\duringTransfer', [
  //                    'model' => $model]);
-                    return $this->render('maybankyh/web/site/transferfile/duringTransfer', [
+                    return $this->render('transferfile/duringTransfer', [
                     'model' => $model]);
                 }
             }
         }
         // return $this->render('transferfile\beginTransfer', [
             // 'model' => $model,
-        return $this->render('maybankyh/web/site/transferfile/beginTransfer', [
+        return $this->render('transferfile/beginTransfer', [
             'model' => $model,
         ]);    
     }

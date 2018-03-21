@@ -74,12 +74,12 @@ class UpdateForm extends Model
                         $account->current_balance = $this->current_balance;
                         $account->created_at = date('Y-m-d H:i:s');
                         $account->update_at = date('Y-m-d H:i:s');
-                        $account->is_deleted = 0;                        
-                    }
-                    if(!$account->save()) {
-                        throw new Exception(current($account->getFirstErrors()), 1);
-                    } else {
-                        $db->commit();
+                        $account->is_deleted = 0;       
+                        if(!$account->save()) {
+                            throw new Exception(current($account->getFirstErrors()), 1);
+                        } else {
+                          $db->commit();
+                        }
                     }
                 }
             } catch (Exception $e) 

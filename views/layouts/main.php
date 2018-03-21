@@ -41,7 +41,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Transfer', 'url' => ['/site/transfer']],
+            ['label' => 'Transfer', 'url' => ['/site/transfer'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'SignUp', 'url' => ['/site/register'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (

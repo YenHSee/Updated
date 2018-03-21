@@ -40,32 +40,11 @@ class SearchForm extends Model
 
 	    $this->load($params);
 
-	    // if (!$this->validate()) {
-	    // 	throw new Exception("Error Processing Request", 1);
-	    // 	return $dataProvider;
-	    // }
-
-
-	    // $query->andFilterWhere([
-	    // 	'like', 'username', $this->username ,
-	    // 	'or', 'role', $this->username ,
-	    // 	'or', 'name', $this->username ,
-	    // 	'or', 'email', $this->username ,
-	    // ]);
-
-
-
 	    $query->andFilterWhere(['like', 'username', $this->username ])
 	        ->orFilterWhere(['like ', 'role', $this->username])
 	        ->orFilterWhere(['like', 'name', $this->username])
 	        ->orFilterWhere(['like', 'email', $this->username])
-	        ->orFilterWhere(['like', 'status', $this->status]);
-
-	 //    $query->andWhere('username LIKE "%' . $this->username . '%" '.
-	 //    	'OR role LIKE "%' . $this->role . '%"'.
-	 //    	'OR name LIKE "%' . $this->name . '%"'.
-	 //    	'OR email LIKE "%' . $this->email . '%"'
-		// );
+	        ->orFilterWhere(['like', 'status', $this->username]);
 
 	    return new ActiveDataProvider([
 	    	'query' => $query,

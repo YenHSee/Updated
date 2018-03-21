@@ -44,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
             _("status").innerHTML = "Phase 3 of 4";
         }
 
+        function randomGenerate() {
+            account_number.value =  Math.floor(Math.random() * 999999999);
+        }
+
         function processBack2() {
             _("phase2").style.display = "block";
             _("phase3").style.display = "none";
@@ -58,6 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
             _("show_all_data").style.display = "block";
             _("progressBar").style.width = 75 + "%";
             _("status").innerHTML = "Phase 4 of 4";
+            _("display_username").innerHTML = username;
+            _("display_name").innerHTML = name;
+            _("display_email").innerHTML = email;
+            _("display_accountNumber").innerHTML = accountnumber;
+            _("display_availableBalance").innerHTML = balance;
         }
 
         function processBack3() {
@@ -68,11 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
         function processPhase4() {
-            // postcode = _("postcode").value;
-            // country = _("signupform-country").value;
-            // city = _("signupform-city").value;
-            // state = _("signupform-state").value;
-            // address = _("address").value;
             _("show_all_data").style.display = "block";
             _("phase3").style.display = "none";
             _("progressBar").style.width = 100 + "%";
@@ -178,13 +182,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">
                 <?= $form->field($model, 'account_number')->textInput([
                     'maxlength' => true,
-                    'id' => 'account_number'
+                    'id' => 'account_number',
+                    'readonly' => true
                     ]) ?>
+            </div>
+            <div>
+                <?= Html::submitButton('Random', ['class'=> 'btn btn-info', 'onclick' => 'randomGenerate()'])?>
             </div>
             <div class="form-group">
                 <?= $form->field($model, 'available_balance')->textInput([
                     'maxlength' => true,
-                    'id' => 'available_balance'
+                    'id' => 'available_balance',
+                    'value' => 1000,
+                    'readonly' => true
                     ]) ?>
             </div>
             <div>
@@ -200,22 +210,26 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="show_all_data">
             <table class="table table-striped">
                 <tbody>
-<!--                     <tr>
-                        <td>Country: </td>
-                        <td><span id="display_country"></span></td>
+                    <tr>
+                        <td>Username: </td>
+                        <td><span id="display_username"></span></td>
                     </tr>
                     <tr>
-                        <td>City: </td>
-                        <td><span id="display_city"></span></td>
+                        <td>Name: </td>
+                        <td><span id="display_name"></span></td>
                     </tr>
                     <tr>
-                        <td>State: </td>
-                        <td><span id="display_state"></span></td>
+                        <td>Email: </td>
+                        <td><span id="display_email"></span></td>
                     </tr>
                     <tr>
-                        <td>Postcode: </td>
-                        <td><span id="display_postcode"></span></td>
-                    </tr> -->
+                        <td>Account Number: </td>
+                        <td><span id="display_accountNumber"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Available Balance: </td>
+                        <td><span id="display_availableBalance"></span></td>
+                    </tr>                    
                 </tbody>
             </table>
 

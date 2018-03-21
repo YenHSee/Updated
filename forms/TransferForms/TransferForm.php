@@ -35,6 +35,8 @@ class TransferForm extends Model
     {
         return [
             [['to_account', 'from_account', 'amount', 'details'], 'safe'],
+            ['amount', 'number', 'min'=>0],
+            ['to_account', 'compare', 'compareAttribute' => 'from_account', 'operator' => '==', 'message'=>'tak boleh sama'],
         ];
     }
 

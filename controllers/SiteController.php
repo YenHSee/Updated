@@ -339,10 +339,38 @@ class SiteController extends Controller
 
     public function actionDelete($id)
     {
-        $user = User::findOne($id);
-        $user->is_deleted = 1;
-        $user->save(false);
-        return $this->redirect(['view']);
+        $db = Yii::$app->db->beginTransaction();
+        try{
+            $user = User::findOne($id);
+            $user->is_deleted = 1;
+            $user->status = 'Deactivated';
+            $user->remark = 'Deleted At '. date('Y-m-d H:i:s');
+            if (!$user->save()) {
+                //throw error
+            } else {
+                $account = Account::findOne(['user_id' => $id]);
+                $account->is_deleted = 1;
+                if (!$account->save()) {
+                    Yii::$app->session->setFlash('Error', 'Account Delete No Successful');
+                    //throw error
+                } else {
+                    $db->commit();
+                    return $this->redirect(['view']);
+                }
+            }
+        } catch (Exception $e) {
+            $db->rollback();
+            throw new Exception($e, 1);
+        }
+    }
+
+    public function actionChangepassword()
+    {
+        $user = Yii::$app->user->identity;
+
+        return $this->render('resetpassword', [
+            'model' => $user,
+        ]);
     }
 
 
@@ -375,6 +403,7 @@ class SiteController extends Controller
             }
             if (Yii::$app->request->post('update') === 'update_1') {
                 $personal->update($id);
+                return $this->redirect(['view']);
             }            
         }
         return $this->render('update', [

@@ -46,26 +46,39 @@ class UpdateForm extends Model
                 $user->name = $this->name;
                 $user->email = $this->email;
                 $user->status = $this->status;
+                $user->is_deleted = 0;
                 $user->updated_at = new Expression('NOW()');
                 if (!$user->save()) {
                     throw new Exception(current($user->getFirstErrors()));
                 }
                 else {
-                    // $db->commit();
-                    $account = new Account();
-                    $account->user_id = $user->id;
-                    $account->account_number = $this->account_number;
-                    $account->available_balance = $this->current_balance-20;
-                    $account->current_balance = $this->current_balance;
-                    $account->created_at = date('Y-m-d H:i:s');
-                    $account->update_at = date('Y-m-d H:i:s');
-                    $account->is_deleted = 0;
-                    if(!$account->save())
-                    {
-                        throw new Exception(current($account->getFirstErrors()), 1);
+                    $account = Account::findOne(['user_id' => $id]);
+                    if ($account === null) {
+                        $newAccount = new Account();
+                        $newAccount->user_id = $user->id;
+                        $newAccount->account_number = $this->account_number;
+                        $newAccount->available_balance = $this->current_balance-20;
+                        $newAccount->current_balance = $this->current_balance;
+                        $newAccount->created_at = date('Y-m-d H:i:s');
+                        $newAccount->update_at = date('Y-m-d H:i:s');
+                        $newAccount->is_deleted = 0;
+                        if (!$newAccount->save()) {
+                            throw new Exception(current($newAccount->getFirstErrors()), 1);
+                        } else {
+                            return $this->redirect(['view']);
+                        }
+                    } else {
+                        $account->user_id = $user->id;
+                        $account->account_number = $this->account_number;
+                        $account->available_balance = $this->current_balance-20;
+                        $account->current_balance = $this->current_balance;
+                        $account->created_at = date('Y-m-d H:i:s');
+                        $account->update_at = date('Y-m-d H:i:s');
+                        $account->is_deleted = 0;                        
                     }
-                    else
-                    {
+                    if(!$account->save()) {
+                        throw new Exception(current($account->getFirstErrors()), 1);
+                    } else {
                         $db->commit();
                     }
                 }
@@ -89,7 +102,8 @@ class UpdateForm extends Model
             $this->current_balance = '';
         }
         else 
-        {      
+        {
+              
             $this->account_number = $model->account_number;
             $this->current_balance = $model->current_balance;
         }

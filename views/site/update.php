@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
 							<?= $form->field($model, 'status')->dropDownList([
 			                    'Activated' => 'Activated', 
 			                    'Rejected' => 'Rejected'],
-			                    ['prompt' => '---Select Status---'
-			                    ]) ?>
+			                   	['disabled' => Yii::$app->user->identity->status === 'Activated' && Yii::$app->user->identity->role !== 'Admin'],
+			                    ['prompt' => '---Select Status---']) ?>
 						</div>
 					</div>
 			</div>
@@ -42,10 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				<a><b>Account Number</a>
 					<div class="row">
 						<div class="col-lg-4">
-							<?= $form->field($model, 'account_number') -> label(false) -> textInput() ?>
+							<?= $form->field($model, 'account_number') -> label(false) -> textInput(['readonly' => true]) ?>
 						</div>
 						<div class="col-lg-3">
-							<?= Html::submitButton('Random', ['name' => 'random', 'value' => 'random_1','class'=> 'btn btn-info']); ?>
+							<?= Html::submitButton('Random', ['name' => 'random', 'value' => 'random_1','class'=> 'btn btn-info', 'disabled' => Yii::$app->user->identity->status==='Activated' && Yii::$app->user->identity->role!=='Admin']); ?>
 						</div>
 					</div>
 

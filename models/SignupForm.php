@@ -55,11 +55,11 @@ class SignupForm extends Model
             try 
             {
                 $user->username = $this->username;
-                //$user->password = $this->password;
                 $user->password = crypt($this->password, 'DontTry');
-                //$user->role = $this->role;
+                $user->role = 'User';
                 $user->name = $this->name;
                 $user->email = $this->email;
+                $user->status = 'Activated';
                 $user->security_question = $this->security_question;
                 $user->security_answer = $this->security_answer;
                 $user->created_at = date('Y-m-d H:i:s');
@@ -95,5 +95,11 @@ class SignupForm extends Model
                     throw new Exception($e, 1);
                 }
         }
+    }
+
+    public function randomGenerate()
+    {
+       $this->account_number = rand(100000000, 999999999);
+       $this->current_balance = 1000;
     }
 }

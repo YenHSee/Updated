@@ -39,10 +39,10 @@ class UpdateForm extends Model
         } 
         else
         {
+            $user = User::findOne($id);
             $db = Yii::$app->db->beginTransaction();
             try 
             {   
-                $user = User::findOne($id);
                 $user->name = $this->name;
                 $user->email = $this->email;
                 $user->status = $this->status;
@@ -65,6 +65,7 @@ class UpdateForm extends Model
                         if (!$newAccount->save()) {
                             throw new Exception(current($newAccount->getFirstErrors()), 1);
                         } else {
+                            $db->commit();
                             Yii::$app->response->redirect(['site/view']);
                         }
                     } else {

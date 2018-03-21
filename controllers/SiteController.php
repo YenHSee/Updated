@@ -296,19 +296,19 @@ class SiteController extends Controller
                             $model->status = 'In';
                             $model->remark = 'Success';
                             $model->created_at = date('Y-m-d H:i:s');
-                            $pdf_content = $this->render('Transferfile\afterTransfer', ['model' => $model]);
+                            $pdf_content = $this->render('maybankyh/views/site/transferfile/afterTransfer', ['model' => $model]);
                             $mpdf = new \Mpdf\Mpdf();
                             $mpdf->WriteHTML($pdf_content);
                             $mpdf->Output();
                             exit;
                         }                       
                     }
-                    return $this->render('Transferfile\duringTransfer', [
+                    return $this->render('maybankyh/views/site/transferfile/duringTransfer', [
                     'model' => $model]);
                 }
             }
         }
-        return $this->render('transferfile\beginTransfer', [
+        return $this->render('maybankyh/views/site/transferfile/beginTransfer', [
             'model' => $model,
         ]);    
     }

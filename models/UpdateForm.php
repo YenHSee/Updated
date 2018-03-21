@@ -26,8 +26,12 @@ class UpdateForm extends Model
             ['name', 'required', 'message' => 'Please Enter a Name'],
             ['email', 'email'],
             ['status', 'safe'],
-            ['account_number', 'safe'],
-            ['current_balance', 'safe'],
+            // ['account_number', 'safe'],
+            // ['current_balance', 'safe'],
+            [['available_balance'], 'number'],
+            [['account_number'], 'number',],
+            [['available_balance'], 'required'],
+            [['account_number'], 'required',],
         ];
     }
 

@@ -36,8 +36,10 @@ class SignupForm extends Model
             ['confirm_password', 'compare', 'compareAttribute'=>'password', 'message' => 'Passwords no match'],
             ['name', 'required', 'message' => 'Please Enter a Name'],
             ['email', 'email'],
-            [['available_balance'], 'number', 'required'],
-            [['account_number'], 'number', 'required'],
+            [['available_balance'], 'number'],
+            [['account_number'], 'number',],
+            [['available_balance'], 'required'],
+            [['account_number'], 'required',],
             [['security_question', 'security_answer'], 'required', 'message' => 'Please Enter for Security Purpose'],
         ];
     }

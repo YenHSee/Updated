@@ -403,7 +403,8 @@ class SiteController extends Controller
             }
             if (Yii::$app->request->post('update') === 'update_1') {
                 $personal->update($id);
-                return $this->redirect(['view']);
+                Yii::$app->response->redirect(['site/view']);
+                // return $this->redirect(['view']);
             }            
         }
         return $this->render('update', [

@@ -282,11 +282,11 @@ class SiteController extends Controller
             if ($model->validateBalance($model->available_balance, $model->amount)) {
                 if( $model->findReceiver($model->to_account)) {
                     
-                    if (Yii::$app->request->post('submit') === 'getPin') {
+                    if (Yii::$app->request->post('getPin') === 'getPin_1') {
                         $model->pendingSender();
                         // throw new Exception("Go get Pin", 1);
                     }
-                    if (Yii::$app->request->post('submit') === 'transfer') {
+                    if (Yii::$app->request->post('transfer') === 'transfer_1') {
                         if($model->validateTransfer())
                         {
                             throw new Exception("Cant lah",1);

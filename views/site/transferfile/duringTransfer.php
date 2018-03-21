@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					<?= $form->field($model, 'pinNumber') -> label(false) -> textInput(['placeholder' => "Please Enter Pin Number"]) ?>
 				</div>
 				<div class="col-lg-3">
-					<?= Html::submitButton('Request', ['name' => 'submit', 'value' => 'getPin','class'=> 'btn btn-info']); ?>
+					<?= Html::submitButton('Request', ['name' => 'getPin', 'value' => 'getPin_1','class'=> 'btn btn-info']); ?>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="pull-right">
-					<?= Html::submitButton('Transfer', ['name' => 'submit', 'value' => 'transfer', 'class'=> 'btn btn-primary']); ?>
+					<?= Html::submitButton('Transfer', ['name' => 'transfer', 'value' => 'transfer_1', 'class'=> 'btn btn-primary']); ?>
 				</div>
 			</div>
 		</div>

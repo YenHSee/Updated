@@ -65,7 +65,7 @@ class UpdateForm extends Model
                         if (!$newAccount->save()) {
                             throw new Exception(current($newAccount->getFirstErrors()), 1);
                         } else {
-                            return $this->redirect(['view']);
+                            Yii::$app->response->redirect(['site/view']);
                         }
                     } else {
                         $account->user_id = $user->id;

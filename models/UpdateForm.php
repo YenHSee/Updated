@@ -28,10 +28,10 @@ class UpdateForm extends Model
             ['status', 'safe'],
             // ['account_number', 'safe'],
             // ['current_balance', 'safe'],
-            [['available_balance'], 'number'],
-            [['account_number'], 'number',],
-            [['available_balance'], 'required'],
-            [['account_number'], 'required',],
+            // [['available_balance'], 'number'],
+            // [['account_number'], 'number',],
+            // [['available_balance'], 'required'],
+            // [['account_number'], 'required',],
         ];
     }
 

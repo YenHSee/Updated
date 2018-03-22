@@ -304,7 +304,8 @@ class SiteController extends Controller
                         }
                         else
                         {
-                            Yii::$app->response->redirect(['transferfile/beginTransfer']);
+                            Yii::$app->response->redirect(['site/send-money']);
+                            // Yii::$app->response->redirect(['site/send']);
                             // $model->status = 'In';
                             // $model->remark = 'Success';
                             // $model->created_at = date('Y-m-d H:i:s');

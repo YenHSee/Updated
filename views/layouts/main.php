@@ -41,7 +41,8 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Transfer', 'url' => ['/site/transfer'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Transfer', 'url' => ['/site/send-money '], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Transaction History', 'url' => ['/site/history'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'SignUp', 'url' => ['/site/register'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
@@ -50,7 +51,7 @@ AppAsset::register($this);
                 ['label' => Yii::$app->user->identity->username, 'items' => [
                 ['label' => 'View All Profile', 'url' => ['/site/view'], 'visible' => Yii::$app->user->identity->role==='Admin'],
                 ['label' => 'Edit Profile', 'visible' => Yii::$app->user->identity->role !== 'Admin' ,'url' => ['/site/update', 'id' => Yii::$app->user->identity->id]],
-                ['label' => 'Change Password', 'url' => '#'],
+                ['label' => 'Change Password', 'url' => ['/site/changepassword']],
                 '<li class="divider"></li>',
                 //problem for post 
                 ['label' => 'Logout', 'url' => ['/site/logout'], 'template' => '<a href="{url}" data-method="post">{label}</a>'],

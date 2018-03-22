@@ -15,19 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
 			
 			<div class="row">
 				<div class="col-lg-3">
-					<?= $form->field($model, 'password') -> label('Current Password') -> passwordInput() ?>
+					<?= $form->field($model, 'currentPassword') -> label('Current Password') -> passwordInput() ?>
 			    </div>
 			</div>
 
 			<div class= "row">
 				<div class="col-lg-3">
-					<?= $form->field($model, 'password') -> label('New Password') -> passwordInput() ?>
+					<?= $form->field($model, 'newPassword') -> label('New Password') -> passwordInput() ?>
 			    </div>
 			</div>
 
 			<div class="row">
 				<div class="col-lg-3">
-					<?= $form->field($model, 'password') -> label('Confirm Password') -> passwordInput() ?>
+					<?= $form->field($model, 'newPasswordConfirm') -> label('Confirm Password') -> passwordInput() ?>
 			    </div>
 			</div>
 

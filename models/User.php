@@ -30,6 +30,9 @@ use yii\web\IdentityInterface;
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $auth_key;
+    public $currentPassword;
+    public $newPassword;
+    public $newPasswordConfirm;
     /**
      * @inheritdoc
      */
@@ -41,15 +44,40 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    // public function rules()
-    // {
-    //     return [
-    //         [['email'], 'required'],
-    //         [['last_logging', 'created_at', 'updated_at'], 'safe'],
-    //         [['username', 'password', 'role', 'name', 'email', 'status', 'remark', 'security_question', 'security_answer'], 'string', 'max' => 255],
-    //         [['is_deleted'], 'string', 'max' => 1],
-    //     ];
-    // }
+    public function rules()
+    {
+        return [
+            [['newPassword', 'currentPassword', 'newPasswordConfirm'], 'required'],
+            [['currentPassword'], 'validateCurrentPassword'],
+            [['newPassword', 'newPasswordConfirm'], 'string', 'min' => 3],
+            [['newPassword', 'newPasswordConfirm'], 'filter', 'filter' => 'trim'],
+            [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Password Do Not Match']
+            // [['email'], 'required'],
+            // [['last_logging', 'created_at', 'updated_at'], 'safe'],
+            // [['username', 'password', 'role', 'name', 'email', 'status', 'remark', 'security_question', 'security_answer'], 'string', 'max' => 255],
+            // [['is_deleted'], 'string', 'max' => 1],
+        ];
+    }
+
+    public function validateCurrentPassword()
+    {
+        // throw new \Exception(var_export($this->currentPassword,1));
+        if (!$this->verifyPassword($this->currentPassword)) {
+            $this->addError("currentPassword", "Current Password Incorrect");
+        }
+    }
+
+    public function verifyPassword($inputPassword)
+    {
+        $dbpassword = static::findOne(['username' => Yii::$app->user->identity->username])->password;
+        $trying = crypt($inputPassword, 'DontTry'); 
+        if ($trying === $dbpassword) {
+            return true;
+        }
+        else {
+            return false;
+        }        
+    }
 
     /**
      * @inheritdoc
@@ -67,7 +95,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'remark' => 'Remark',
             'security_question' => 'Security Question',
             'security_answer' => 'Security Answer',
-            'last_logging' => 'Last Logging',
+            'last_logging' =>   'Last Logging',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'is_deleted' => 'Is Deleted',

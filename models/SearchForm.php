@@ -9,6 +9,7 @@ use yii\db\Expression;
 use Exception;
 use yii\data\ActiveDataProvider;
 use app\models\User;
+use app\models\Transaction;
 	
 class SearchForm extends Model
 {
@@ -50,6 +51,44 @@ class SearchForm extends Model
 	    	'query' => $query,
 	    ]);
 	}
+
+	public function checkHistory($params)
+	{
+		$query = Transaction::find(['user_id' => $params]);
+		$dataProvider = new ActiveDataProvider([
+			'query' =>$query,
+		]);
+		$this->load($params);
+	    $query->andFilterWhere(['like', 'to_account', $this->status ])
+	        ->orFilterWhere(['like ', 'from_account', $this->status])
+	        ->orFilterWhere(['like', 'amount', $this->status])
+	        ->orFilterWhere(['like', 'last_balance', $this->status])
+	        ->orFilterWhere(['like', 'status', $this->status])
+	        ->orFilterWhere(['like', 'details', $this->status])
+	        ->orFilterWhere(['like', 'remark', $this->status]);
+		return new ActiveDataProvider([
+			'query' => $query,
+ 		]);
+	}
+
+	// public function checkHistory1($id)
+	// {
+	// 	$query = Transaction::find(['user_id' => $id]);
+	// 	$dataProvider = new ActiveDataProvider([
+	// 		'query' =>$query,
+	// 	]);
+	// 	$this->load($id);
+	//     $query->andFilterWhere(['like', 'to_account', $this->status ])
+	//         ->orFilterWhere(['like ', 'from_account', $this->status])
+	//         ->orFilterWhere(['like', 'amount', $this->status])
+	//         ->orFilterWhere(['like', 'last_balance', $this->status])
+	//         ->orFilterWhere(['like', 'status', $this->status])
+	//         ->orFilterWhere(['like', 'details', $this->status])
+	//         ->orFilterWhere(['like', 'remark', $this->status]);
+	// 	return new ActiveDataProvider([
+	// 		'query' => $query,
+ // 		]);
+	// }
 }
           // $query = User::find()
           //   ->where(['is_deleted' => 0])

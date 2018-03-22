@@ -124,6 +124,17 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionHistory()
+    {
+            $searchModel = new SearchForm();
+            // throw new  Exception(var_export(Yii::$app->request->queryParams,1));
+            $dataProvider = $searchModel->checkHistory(Yii::$app->request->queryParams);
+            return $this->render('history', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);   
+    }
+
     public function actionRegister()
     {
         $model = new RegisterForm();
@@ -293,15 +304,15 @@ class SiteController extends Controller
                         }
                         else
                         {
-                            $model->status = 'In';
-                            $model->remark = 'Success';
-                            $model->created_at = date('Y-m-d H:i:s');
+                            // $model->status = 'In';
+                            // $model->remark = 'Success';
+                            // $model->created_at = date('Y-m-d H:i:s');
                             //$pdf_content = $this->render('Transferfile\afterTransfer', ['model' => $model]);
-                            $pdf_content = $this->render('transferfile/afterTransfer', ['model' => $model]);
-                            $mpdf = new \Mpdf\Mpdf();
-                            $mpdf->WriteHTML($pdf_content);
-                            $mpdf->Output();
-                            exit;
+                            // $pdf_content = $this->render('transferfile/afterTransfer', ['model' => $model]);
+                            // $mpdf = new \Mpdf\Mpdf();
+                            // $mpdf->WriteHTML($pdf_content);
+                            // $mpdf->Output();
+                            // exit;
                         }                       
                     }
 
@@ -373,7 +384,16 @@ class SiteController extends Controller
     public function actionChangepassword()
     {
         $user = Yii::$app->user->identity;
-
+        if ($user->load(Yii::$app->request->post()))
+            {
+                if ($user->validate())
+                {
+                    $user->password = crypt($user->newPassword, 'DontTry');   
+                    $user->save(false);
+                    Yii::$app->session->setFlash('success', 'You have successfully changed your password.');
+                    return $this->refresh();                    
+                }
+            }
         return $this->render('resetpassword', [
             'model' => $user,
         ]);

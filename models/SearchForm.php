@@ -54,7 +54,7 @@ class SearchForm extends Model
 
 	public function checkHistory($params)
 	{
-		$query = Transaction::find(['user_id' => $params]);
+		$query = Transaction::find();
 		$dataProvider = new ActiveDataProvider([
 			'query' =>$query,
 		]);
@@ -71,24 +71,25 @@ class SearchForm extends Model
  		]);
 	}
 
-	// public function checkHistory1($id)
-	// {
-	// 	$query = Transaction::find(['user_id' => $id]);
-	// 	$dataProvider = new ActiveDataProvider([
-	// 		'query' =>$query,
-	// 	]);
-	// 	$this->load($id);
-	//     $query->andFilterWhere(['like', 'to_account', $this->status ])
-	//         ->orFilterWhere(['like ', 'from_account', $this->status])
-	//         ->orFilterWhere(['like', 'amount', $this->status])
-	//         ->orFilterWhere(['like', 'last_balance', $this->status])
-	//         ->orFilterWhere(['like', 'status', $this->status])
-	//         ->orFilterWhere(['like', 'details', $this->status])
-	//         ->orFilterWhere(['like', 'remark', $this->status]);
-	// 	return new ActiveDataProvider([
-	// 		'query' => $query,
- // 		]);
-	// }
+	public function checkHistory1($id)
+	{
+		$query = Transaction::find()
+		->where(['user_id' => $id]);
+		$dataProvider = new ActiveDataProvider([
+			'query' =>$query,
+		]);
+		// $this->load($id);
+	    // $query->andFilterWhere(['like', 'to_account', $this->status ])
+	    //     ->orFilterWhere(['like ', 'from_account', $this->status])
+	    //     ->orFilterWhere(['like', 'amount', $this->status])
+	    //     ->orFilterWhere(['like', 'last_balance', $this->status])
+	    //     ->orFilterWhere(['like', 'status', $this->status])
+	    //     ->orFilterWhere(['like', 'details', $this->status])
+	    //     ->orFilterWhere(['like', 'remark', $this->status]);
+		return new ActiveDataProvider([
+			'query' => $query,
+ 		]);
+	}
 }
           // $query = User::find()
           //   ->where(['is_deleted' => 0])

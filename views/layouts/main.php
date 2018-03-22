@@ -40,10 +40,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
+            // ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Transfer', 'url' => ['/site/send-money '], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Transaction History', 'url' => ['/site/history'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            // ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'SignUp', 'url' => ['/site/register'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

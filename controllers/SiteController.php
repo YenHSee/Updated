@@ -126,13 +126,19 @@ class SiteController extends Controller
 
     public function actionHistory()
     {
-            $searchModel = new SearchForm();
-            // throw new  Exception(var_export(Yii::$app->request->queryParams,1));
+        $user = Yii::$app->user->identity->role;
+        // throw new Exception(var_export($user,1));
+        $searchModel = new SearchForm();
+        if ($user === 'Admin') {
             $dataProvider = $searchModel->checkHistory(Yii::$app->request->queryParams);
-            return $this->render('history', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);   
+        } else if ($user === 'User') {
+            $dataProvider = $searchModel->checkHistory1(Yii::$app->user->identity->id);
+        }
+        return $this->render('history', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);  
+
     }
 
     public function actionRegister()

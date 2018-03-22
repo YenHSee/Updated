@@ -304,6 +304,7 @@ class SiteController extends Controller
                         }
                         else
                         {
+                            Yii::$app->response->redirect(['transferfile/beginTransfer']);
                             // $model->status = 'In';
                             // $model->remark = 'Success';
                             // $model->created_at = date('Y-m-d H:i:s');
